@@ -96,4 +96,33 @@ setInterval(function() {
     move()
     combine()
     draw()
-}, 1000)
+}, 300)
+
+document.addEventListener('keydown', function(evt) {
+    switch (evt.keyCode) {
+        case 37: // LEFT
+            dir = {
+                x: -1,
+                y: 0
+            }
+            break;
+        case 38: // UP
+            dir = {
+                x: 0,
+                y: -1
+            }
+            break;
+        case 39: // RIGHT
+            dir = {
+                x: 1,
+                y: 0
+            }
+            break;
+        case 40: // DOWN
+            dir = {
+                x: 0,
+                y: 1
+            }
+            break;
+    }
+})
