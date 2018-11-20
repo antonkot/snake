@@ -10,6 +10,23 @@ const ctx = canvas.getContext('2d')
 
 // Variables
 let grid = []
+let dir = {
+    x: 1,
+    y: 0
+}
+let snake = [{
+        x: 15,
+        y: 15
+    },
+    {
+        x: 14,
+        y: 15
+    },
+    {
+        x: 13,
+        y: 15
+    }
+]
 
 // Returns empty grid
 function getEmptyGrid() {
@@ -32,15 +49,19 @@ function getEmptyGrid() {
     return result
 }
 
+// Draw grid on canvas
 function draw() {
     for (var x = 0; x < CELL_COUNT; x++) {
         for (var y = 0; y < CELL_COUNT; y++) {
             switch (grid[x][y]) {
-                case 0:
+                case 0: // Background
                     ctx.fillStyle = 'black'
                     break;
-                case -1:
+                case -1: // Walls
                     ctx.fillStyle = 'grey'
+                    break;
+                case 1: // Snake
+                    ctx.fillStyle = 'white'
                     break;
             }
             ctx.fillRect(
@@ -51,5 +72,13 @@ function draw() {
     }
 }
 
+// Combine grid and snake
+function combine() {
+    for (var i = 0; i < snake.length; i++) {
+        grid[snake[i].x][snake[i].y] = 1
+    }
+}
+
 grid = getEmptyGrid()
+combine()
 draw()
