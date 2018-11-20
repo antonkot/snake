@@ -79,6 +79,21 @@ function combine() {
     }
 }
 
-grid = getEmptyGrid()
-combine()
-draw()
+// Move the snake
+function move() {
+    let head = snake[0]
+    let newHead = {
+        x: head.x + dir.x,
+        y: head.y + dir.y
+    }
+    snake.unshift(newHead)
+    snake.pop()
+}
+
+// Main loop
+setInterval(function() {
+    grid = getEmptyGrid()
+    move()
+    combine()
+    draw()
+}, 1000)
