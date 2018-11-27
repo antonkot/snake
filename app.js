@@ -100,11 +100,13 @@ function move() {
 }
 
 function makeApple() {
-    let x = Math.round(1 + Math.random() * (CELL_COUNT - 3))
-    let y = Math.round(1 + Math.random() * (CELL_COUNT - 3))
-    if (grid[x][y] == 0) {
-        grid[x][y] = 2
+    let x = 0;
+    let y = 0;
+    while (grid[x][y] != 0) {
+        x = Math.round(1 + Math.random() * (CELL_COUNT - 3))
+        y = Math.round(1 + Math.random() * (CELL_COUNT - 3))
     }
+    grid[x][y] = 2
 }
 
 // Main loop
