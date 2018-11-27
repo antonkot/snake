@@ -65,6 +65,9 @@ function draw() {
                 case 1: // Snake
                     ctx.fillStyle = 'white'
                     break;
+                case 2: // Apple
+                    ctx.fillStyle = 'red'
+                    break;
             }
             ctx.fillRect(
                 x * CELL_SIZE, y * CELL_SIZE,
@@ -81,7 +84,7 @@ function combine() {
     }
 }
 
-// Move the snake
+// Move the snakeMath.round(
 function move() {
     let head = snake[0]
     let newHead = {
@@ -96,12 +99,21 @@ function move() {
     snake.pop()
 }
 
+function makeApple() {
+    let x = Math.round(1 + Math.random() * (CELL_COUNT - 3))
+    let y = Math.round(1 + Math.random() * (CELL_COUNT - 3))
+    if (grid[x][y] == 0) {
+        grid[x][y] = 2
+    }
+}
+
 // Main loop
 setInterval(function() {
     if (!gameOver) {
         grid = getEmptyGrid()
         move()
         combine()
+        makeApple()
         draw()
     }
 }, 300)
