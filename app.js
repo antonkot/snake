@@ -7,6 +7,7 @@ const canvas = document.getElementById('app')
 canvas.width = APP_SIZE
 canvas.height = APP_SIZE
 const ctx = canvas.getContext('2d')
+const heading = document.getElementById('heading')
 
 // Variables
 let grid = []
@@ -14,6 +15,7 @@ let dir = {
     x: 1,
     y: 0
 }
+let gameOver = false
 let snake = [{
         x: 15,
         y: 15
@@ -86,16 +88,22 @@ function move() {
         x: head.x + dir.x,
         y: head.y + dir.y
     }
+    if (grid[newHead.x][newHead.y] == -1) {
+        gameOver = true
+        heading.innerText = "GAME OVER"
+    }
     snake.unshift(newHead)
     snake.pop()
 }
 
 // Main loop
 setInterval(function() {
-    grid = getEmptyGrid()
-    move()
-    combine()
-    draw()
+    if (!gameOver) {
+        grid = getEmptyGrid()
+        move()
+        combine()
+        draw()
+    }
 }, 300)
 
 document.addEventListener('keydown', function(evt) {
