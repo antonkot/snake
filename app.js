@@ -29,6 +29,8 @@ let snake = [{
         y: 15
     }
 ]
+grid = getEmptyGrid()
+let apple = makeApple()
 
 // Returns empty grid
 function getEmptyGrid() {
@@ -82,6 +84,7 @@ function combine() {
     for (var i = 0; i < snake.length; i++) {
         grid[snake[i].x][snake[i].y] = 1
     }
+    grid[apple.x][apple.y] = 2
 }
 
 // Move the snakeMath.round(
@@ -99,6 +102,7 @@ function move() {
     snake.pop()
 }
 
+// Generates apple in a random empty cell
 function makeApple() {
     let x = 0;
     let y = 0;
@@ -106,7 +110,10 @@ function makeApple() {
         x = Math.round(1 + Math.random() * (CELL_COUNT - 3))
         y = Math.round(1 + Math.random() * (CELL_COUNT - 3))
     }
-    grid[x][y] = 2
+    return {
+        x,
+        y
+    }
 }
 
 // Main loop
@@ -115,7 +122,6 @@ setInterval(function() {
         grid = getEmptyGrid()
         move()
         combine()
-        makeApple()
         draw()
     }
 }, 300)
