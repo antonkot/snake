@@ -94,12 +94,21 @@ function move() {
         x: head.x + dir.x,
         y: head.y + dir.y
     }
-    if (grid[newHead.x][newHead.y] == -1) {
-        gameOver = true
-        heading.innerText = "GAME OVER"
+    switch (grid[newHead.x][newHead.y]) {
+        case -1: // wall collision
+        case 1: // self-collision
+            gameOver = true
+            heading.innerText = "GAME OVER"
+            break;
+        case 2: // eating apple
+            snake.unshift(newHead)
+            apple = makeApple()
+            break;
+        default: // regular movement
+            snake.pop()
+            snake.unshift(newHead)
+            break;
     }
-    snake.unshift(newHead)
-    snake.pop()
 }
 
 // Generates apple in a random empty cell
@@ -120,8 +129,8 @@ function makeApple() {
 setInterval(function() {
     if (!gameOver) {
         grid = getEmptyGrid()
-        move()
         combine()
+        move()
         draw()
     }
 }, 300)
